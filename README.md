@@ -8,6 +8,8 @@ Module for creating and manipulating a tree-style object from POSIX or win32 sty
     * [~Make(paths, cb)](#module_filepaths-to-tree..Make) ⇒
     * [~Insert(root, lpath, value)](#module_filepaths-to-tree..Insert) ⇒
     * [~Remove(root, lpath)](#module_filepaths-to-tree..Remove) ⇒
+    * [~Find(root, lpath)](#module_filepaths-to-tree..Find) ⇒
+    * [~SplitPath(lpath)](#module_filepaths-to-tree..SplitPath) ⇒
 
 <a name="module_filepaths-to-tree..Make"></a>
 
@@ -68,3 +70,28 @@ Remove(t, 'a/1')
 // returns { a: { '2': 'a/2' } }
 Remove(t, 'b/1')
 ```
+<a name="module_filepaths-to-tree..Find"></a>
+
+### filepaths-to-tree~Find(root, lpath) ⇒
+Find returns the tree branch, end node value, or undefined from the given path in the tree.
+
+**Kind**: inner method of [<code>filepaths-to-tree</code>](#module_filepaths-to-tree)  
+**Returns**: The tree branch, end value, or undefined.  
+
+| Param | Description |
+| --- | --- |
+| root | The root tree object to grow to fit the path. |
+| lpath | The POSIX or win32 path to remove from the tree. |
+
+<a name="module_filepaths-to-tree..SplitPath"></a>
+
+### filepaths-to-tree~SplitPath(lpath) ⇒
+SplitPath returns an array of strings representing a path's structure split by forward or back slashes.
+
+**Kind**: inner method of [<code>filepaths-to-tree</code>](#module_filepaths-to-tree)  
+**Returns**: An array of paths separated by '/' or '\\'.  
+
+| Param | Description |
+| --- | --- |
+| lpath | The POSIX or win32 path to remove from the tree. |
+
