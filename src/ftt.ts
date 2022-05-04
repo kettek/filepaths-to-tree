@@ -35,7 +35,7 @@ export function Make(paths: string[], cb: (fullpath: string) => any = (s: string
  * @returns The root tree object.
  */
 export function Insert(root: any, lpath: string, value: any): any {
-    const parts = lpath.split('\\').map(v=>v.split('/')).reduce((p,c)=>Array.isArray(c)?[...p,...c]:[...p,c], []).filter(v=>v!=='')
+    const parts = SplitPath(lpath)
     let node = root
     for (let i = 0; i < parts.length; i++) {
         let p = parts[i]
@@ -65,7 +65,7 @@ export function Insert(root: any, lpath: string, value: any): any {
  * @returns The root tree object.
  */
 export function Remove(root: any, lpath: string): any {
-    const parts = lpath.split('\\').map(v=>v.split('/')).reduce((p,c)=>Array.isArray(c)?[...p,...c]:[...p,c], []).filter(v=>v!=='')
+    const parts = SplitPath(lpath)
     let node = root
     let traversed = []
     for (let i = 0; i < parts.length; i++) {
@@ -87,4 +87,32 @@ export function Remove(root: any, lpath: string): any {
     }
 
     return root
+}
+
+/**
+ * Find returns the tree branch, end node value, or undefined from the given path in the tree.
+ * 
+ * @param root The root tree object to grow to fit the path.
+ * @param lpath The POSIX or win32 path to remove from the tree.
+ * @returns The tree branch, end value, or undefined.
+ */
+export function Find(root: any, lpath: string): any {
+    const parts = SplitPath(lpath)
+    let node = root
+    for (let i = 0; i < parts.length; i++) {
+        let p = parts[i]
+        if (node[p] === undefined) return undefined
+        node = node[p]
+    }
+    return node
+}
+
+/**
+ * SplitPath returns an array of strings representing a path's structure split by forward or back slashes.
+ * 
+ * @param lpath The POSIX or win32 path to remove from the tree.
+ * @returns An array of paths separated by '/' or '\\'.
+ */
+export function SplitPath(lpath: string): string[] {
+    return lpath.split('\\').map(v=>v.split('/')).reduce((p,c)=>Array.isArray(c)?[...p,...c]:[...p,c], []).filter(v=>v!=='')
 }
