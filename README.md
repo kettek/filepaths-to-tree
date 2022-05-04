@@ -6,13 +6,13 @@ This module provides functions for creating and manipulating a plain object tree
 <dl>
 <dt><a href="#Make">Make(paths, cb)</a> ⇒ <code>Object</code></dt>
 <dd><p>Make creates a new tree object from an array of POSIX or win32 style paths.</p></dd>
-<dt><a href="#Insert">Insert(root, lpath, value)</a> ⇒ <code>Object</code></dt>
+<dt><a href="#Insert">Insert(root, path, value)</a> ⇒ <code>Object</code></dt>
 <dd><p>Insert inserts the given path into the root object and assigns the value to the end node.</p></dd>
-<dt><a href="#Remove">Remove(root, lpath)</a> ⇒ <code>Object</code></dt>
+<dt><a href="#Remove">Remove(root, path)</a> ⇒ <code>Object</code></dt>
 <dd><p>Remove removes the given path from the root object. Also removes any branches that are made empty during this process.</p></dd>
-<dt><a href="#Find">Find(root, lpath)</a> ⇒ <code>Object</code></dt>
+<dt><a href="#Find">Find(root, path)</a> ⇒ <code>Object</code></dt>
 <dd><p>Find returns the tree branch, end node value, or undefined from the given path in the tree.</p></dd>
-<dt><a href="#SplitPath">SplitPath(lpath)</a> ⇒ <code>Array.&lt;string&gt;</code></dt>
+<dt><a href="#SplitPath">SplitPath(path)</a> ⇒ <code>Array.&lt;string&gt;</code></dt>
 <dd><p>SplitPath returns an array of strings representing a path's structure split by forward or back slashes.</p></dd>
 </dl>
 
@@ -42,7 +42,7 @@ Make(['a/b/c', 'a\\b\\d', 'a\\b/e', 'b/c\\a'], p => p)
 ```
 <a name="Insert"></a>
 
-## Insert(root, lpath, value) ⇒ <code>Object</code>
+## Insert(root, path, value) ⇒ <code>Object</code>
 <p>Insert inserts the given path into the root object and assigns the value to the end node.</p>
 
 **Returns**: <code>Object</code> - <p>The root tree object.</p>  
@@ -50,7 +50,7 @@ Make(['a/b/c', 'a\\b\\d', 'a\\b/e', 'b/c\\a'], p => p)
 | Param | Type | Description |
 | --- | --- | --- |
 | root | <code>Object</code> | <p>The root tree object to grow to fit the path.</p> |
-| lpath | <code>string</code> | <p>The POSIX or win32 path to create as a branch.</p> |
+| path | <code>string</code> | <p>The POSIX or win32 path to create as a branch.</p> |
 | value | <code>any</code> | <p>The value to set the end of the branch to.</p> |
 
 **Example**  
@@ -60,7 +60,7 @@ Insert({}, '/my\\mixed/path', 'something')
 ```
 <a name="Remove"></a>
 
-## Remove(root, lpath) ⇒ <code>Object</code>
+## Remove(root, path) ⇒ <code>Object</code>
 <p>Remove removes the given path from the root object. Also removes any branches that are made empty during this process.</p>
 
 **Returns**: <code>Object</code> - <p>The root tree object.</p>  
@@ -68,7 +68,7 @@ Insert({}, '/my\\mixed/path', 'something')
 | Param | Type | Description |
 | --- | --- | --- |
 | root | <code>Object</code> | <p>The root tree object to grow to fit the path.</p> |
-| lpath | <code>string</code> | <p>The POSIX or win32 path to remove from the tree.</p> |
+| path | <code>string</code> | <p>The POSIX or win32 path to remove from the tree.</p> |
 
 **Example**  
 ```js
@@ -81,7 +81,7 @@ Remove(t, 'b/1')
 ```
 <a name="Find"></a>
 
-## Find(root, lpath) ⇒ <code>Object</code>
+## Find(root, path) ⇒ <code>Object</code>
 <p>Find returns the tree branch, end node value, or undefined from the given path in the tree.</p>
 
 **Returns**: <code>Object</code> - <p>The tree branch, end value, or undefined.</p>  
@@ -89,18 +89,18 @@ Remove(t, 'b/1')
 | Param | Type | Description |
 | --- | --- | --- |
 | root | <code>Object</code> | <p>The root tree object to grow to fit the path.</p> |
-| lpath | <code>string</code> | <p>The POSIX or win32 path to remove from the tree.</p> |
+| path | <code>string</code> | <p>The POSIX or win32 path to remove from the tree.</p> |
 
 <a name="SplitPath"></a>
 
-## SplitPath(lpath) ⇒ <code>Array.&lt;string&gt;</code>
+## SplitPath(path) ⇒ <code>Array.&lt;string&gt;</code>
 <p>SplitPath returns an array of strings representing a path's structure split by forward or back slashes.</p>
 
 **Returns**: <code>Array.&lt;string&gt;</code> - <p>An array of paths separated by <code>/</code> or <code>\\</code>.</p>  
 
 | Param | Type | Description |
 | --- | --- | --- |
-| lpath | <code>string</code> | <p>The POSIX or win32 path to remove from the tree.</p> |
+| path | <code>string</code> | <p>The POSIX or win32 path to remove from the tree.</p> |
 
 <a name="MakeCallback"></a>
 
