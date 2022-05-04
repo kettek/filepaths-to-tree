@@ -1,6 +1,6 @@
 {
   "name": "@kettek/filepaths-to-tree",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "POSIX/win32 path strings to POJO tree",
   "main": "lib/ftt.js",
   "types": "lib/ftt.d.ts",
@@ -10,7 +10,15 @@
     "build:doc": "jsdoc2md --partial doc/scope.hbs --template doc/README.hbs --files ./src/*.ts --configure ./jsdoc2md.json > README.md",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["tree", "paths", "POSIX", "win32", "file paths", "simple", "pojo"],
+  "keywords": [
+    "tree",
+    "paths",
+    "POSIX",
+    "win32",
+    "file paths",
+    "simple",
+    "pojo"
+  ],
   "author": "Ketchetwahmeegwun T. Southall",
   "license": "MPL-2.0",
   "devDependencies": {
