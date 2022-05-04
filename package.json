@@ -5,14 +5,16 @@
   "main": "lib/ftt.js",
   "types": "lib/ftt.d.ts",
   "scripts": {
-    "prepublish": "tsc",
+    "prepare": "tsc",
     "build": "tsc",
+    "documentation": "jsdoc2md ./lib/ftt.js > README.md",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
   "author": "",
   "license": "MPL-2.0",
   "devDependencies": {
+    "jsdoc-to-markdown": "^7.1.1",
     "typescript": "^4.6.4"
   }
 }
