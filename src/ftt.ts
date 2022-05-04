@@ -1,6 +1,8 @@
 /**
- * Module for creating and manipulating a tree-style object from POSIX or win32 style paths. 
- * @module filepaths-to-tree
+ * @typedef {function(string):any} MakeCallback
+ * @callback MakeCallback
+ * @param {string} fullpath The full path of the given entry.
+ * @returns {any} The value to assign to the given entry.
  */
 
 /**
@@ -8,11 +10,11 @@
  * 
  * @example
  * // returns { a: { b: { c: 'a/b/c', d: 'a\\b\\d', e: 'a\\b/e' } }, b: { c: { a: 'b/c\\a' } } }
- * ftt.Make(['a/b/c', 'a\\b\\d', 'a\\b/e', 'b/c\\a'], p => p)
+ * Make(['a/b/c', 'a\\b\\d', 'a\\b/e', 'b/c\\a'], p => p)
  * 
- * @param paths An array of POSIX or win32 style paths to build the tree object.
- * @param cb A optional callback to assign to the end node of the path.
- * @returns The resulting tree.
+ * @param {string[]} paths An array of POSIX or win32 style paths to build the tree object.
+ * @param {MakeCallback} cb A optional callback to assign to the end node of the path.
+ * @returns {Object} The resulting tree.
  */
 export function Make(paths: string[], cb: (fullpath: string) => any = (s: string) => s): any {
     let tree = {}
@@ -29,13 +31,13 @@ export function Make(paths: string[], cb: (fullpath: string) => any = (s: string
  * // returns { my: { mixed: { path: 'something' } } }
  * Insert({}, '/my\\mixed/path', 'something')
  * 
- * @param root The root tree object to grow to fit the path.
- * @param lpath The POSIX or win32 path to create as a branch.
- * @param value The value to set the end of the branch as.
- * @returns The root tree object.
+ * @param {Object} root The root tree object to grow to fit the path.
+ * @param {string} path The POSIX or win32 path to create as a branch.
+ * @param {any} value The value to set the end of the branch to.
+ * @returns {Object} The root tree object.
  */
-export function Insert(root: any, lpath: string, value: any): any {
-    const parts = SplitPath(lpath)
+export function Insert(root: any, path: string, value: any): any {
+    const parts = SplitPath(path)
     let node = root
     for (let i = 0; i < parts.length; i++) {
         let p = parts[i]
@@ -60,12 +62,12 @@ export function Insert(root: any, lpath: string, value: any): any {
  * // returns { a: { '2': 'a/2' } }
  * Remove(t, 'b/1')
  * 
- * @param root The root tree object to grow to fit the path.
- * @param lpath The POSIX or win32 path to remove from the tree.
- * @returns The root tree object.
+ * @param {Object} root The root tree object to grow to fit the path.
+ * @param {string} path The POSIX or win32 path to remove from the tree.
+ * @returns {Object} The root tree object.
  */
-export function Remove(root: any, lpath: string): any {
-    const parts = SplitPath(lpath)
+export function Remove(root: any, path: string): any {
+    const parts = SplitPath(path)
     let node = root
     let traversed = []
     for (let i = 0; i < parts.length; i++) {
@@ -92,12 +94,12 @@ export function Remove(root: any, lpath: string): any {
 /**
  * Find returns the tree branch, end node value, or undefined from the given path in the tree.
  * 
- * @param root The root tree object to grow to fit the path.
- * @param lpath The POSIX or win32 path to remove from the tree.
- * @returns The tree branch, end value, or undefined.
+ * @param {Object} root The root tree object to grow to fit the path.
+ * @param {string} path The POSIX or win32 path to remove from the tree.
+ * @returns {Object} The tree branch, end value, or undefined.
  */
-export function Find(root: any, lpath: string): any {
-    const parts = SplitPath(lpath)
+export function Find(root: any, path: string): any {
+    const parts = SplitPath(path)
     let node = root
     for (let i = 0; i < parts.length; i++) {
         let p = parts[i]
@@ -110,9 +112,9 @@ export function Find(root: any, lpath: string): any {
 /**
  * SplitPath returns an array of strings representing a path's structure split by forward or back slashes.
  * 
- * @param lpath The POSIX or win32 path to remove from the tree.
- * @returns An array of paths separated by '/' or '\\'.
+ * @param {string} path The POSIX or win32 path to remove from the tree.
+ * @returns {string[]} An array of paths separated by `/` or `\\`.
  */
-export function SplitPath(lpath: string): string[] {
-    return lpath.split('\\').map(v=>v.split('/')).reduce((p,c)=>Array.isArray(c)?[...p,...c]:[...p,c], []).filter(v=>v!=='')
+export function SplitPath(path: string): string[] {
+    return path.split('\\').map(v=>v.split('/')).reduce((p,c)=>Array.isArray(c)?[...p,...c]:[...p,c], []).filter(v=>v!=='')
 }
