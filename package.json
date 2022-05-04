@@ -1,6 +1,6 @@
 {
   "name": "@kettek/filepaths-to-tree",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "",
   "main": "lib/ftt.js",
   "types": "lib/ftt.d.ts",
